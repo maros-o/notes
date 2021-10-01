@@ -1,0 +1,150 @@
+<BackgroundColor@Widget>
+    background_color: 1, 1, 1, 1
+    canvas.before:
+        Color:
+            rgba: root.background_color
+        Rectangle:
+            size: self.size
+            pos: self.pos
+<BackgroundLabel@Label+BackgroundColor>
+    background_color: 0, 0, 0, 0
+
+<MyGrid>:
+    taskField: taskList
+    eventField: eventList
+    cols:1
+
+    GridLayout:
+        cols:1
+        GridLayout:
+            cols:2
+            BackgroundLabel:
+                text: "To-Do:"
+                bold: True
+                size_hint: 1, 0.15
+                font_size: 90
+                background_color: 0.2, 0.8, 1, 0.5
+            BackgroundLabel:
+                text: "Events:"
+                bold: True
+                size_hint: 1, 0.15
+                font_size: 90
+                background_color: 1, 0.6, 1, 0.5
+
+            TaskListWidget:
+                id: taskList
+                viewclass: "RVItem"
+                orientation: "vertical"
+
+                RecycleBoxLayout:
+                    spacing: 10
+                    padding: "5dp", "12dp", "0dp", "0dp"
+                    default_size: None, dp(50)
+                    default_size_hint: 0.95, None
+                    size_hint_y: None
+                    height: self.minimum_height
+                    orientation: "vertical"
+
+            EventListWidget:
+                id: eventList
+                viewclass: "RVItem"
+                orientation: "vertical"
+
+                RecycleBoxLayout:
+                    spacing: 10
+                    padding: "5dp", "12dp", "0dp", "0dp"
+                    default_size: None, dp(50)
+                    default_size_hint: 0.95, None
+                    size_hint_y: None
+                    height: self.minimum_height
+                    orientation: "vertical"
+
+        GridLayout:
+            cols:2
+            size_hint:1, 0.15
+            Button:
+                text:"New Task"
+                bold: True
+                size_hint: 1, 1
+                font_size: 60
+                on_press: root.show_task_popup()
+
+            Button:
+                text:"New Event"
+                bold: True
+                size_hint: 1, 1
+                font_size: 60
+                on_press: root.show_event_popup()
+
+<TaskPopup>:
+    textInput: textInput
+    bold: True
+    cols: 1
+    TextInput:
+        id: textInput
+        bold: True
+        size_hint: 1, 0.2
+        font_size: 80
+    Button:
+        text:"Add this Task"
+        bold: True
+        size_hint: 1, 0.15
+        font_size: 60
+        on_press: root.newTask()
+
+<EventPopup>:
+    dayInput: dayInput
+    monthInput: monthInput
+    yearInput: yearInput
+    eventInput: eventInput
+    bold: True
+    cols: 1
+    GridLayout:
+        cols: 3
+        Label:
+            text: "Day"
+            font_size: 40
+            size_hint: 1, 0.3
+        Label:
+            text: "Month"
+            font_size: 40
+            size_hint: 1, 0.3
+        Label:
+            text: "Year"
+            font_size: 40
+            size_hint: 1, 0.3
+        TextInput:
+            id: dayInput
+            bold: True
+            size_hint: 1, 0.5
+            font_size: 80
+        TextInput:
+            id: monthInput
+            bold: True
+            size_hint: 1, 0.5
+            font_size: 80
+        TextInput:
+            id: yearInput
+            bold: True
+            size_hint: 1, 0.5
+            font_size: 80
+
+    GridLayout:
+        cols: 2
+        size_hint: 1, 0.6
+        Label:
+            text: "Title"
+            bold: True
+            font_size: 50
+            size_hint: 0.3, 1
+        TextInput:
+            id: eventInput
+            bold: True
+            size_hint: 1, 1
+            font_size: 80
+    Button:
+        text:"Add this Event"
+        bold: True
+        size_hint: 1, 0.5
+        font_size: 60
+        on_press: root.newEvent()
